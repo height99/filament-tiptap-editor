@@ -25,14 +25,14 @@
                 ])
                 @if (! $shouldDisableStylesheet())
                     x-data="{}"
-                    x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('tiptap', 'awcodes/tiptap-editor'))]"
+                    x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('tiptap', \FilamentTiptapEditor\FilamentTiptapEditorServiceProvider::getAssetPackageName()))]"
                 @endif
             >
                 <div
                     wire:ignore
                     x-ignore
                     ax-load
-                    ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('tiptap', 'awcodes/tiptap-editor') }}"
+                    ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('tiptap', \FilamentTiptapEditor\FilamentTiptapEditorServiceProvider::getAssetPackageName()) }}"
                     class="relative z-0 tiptap-wrapper rounded-md bg-white dark:bg-gray-900 focus-within:ring focus-within:ring-primary-500 focus-within:z-10"
                     x-bind:class="{ 'tiptap-fullscreen': fullScreenMode }"
                     x-data="tiptap({
@@ -137,7 +137,7 @@
                                 }"
                                 class="hidden shrink-0 space-y-2 max-w-sm md:flex flex-col h-full"
                                 x-bind:class="{
-                                    'bg-gray-50 dark:bg-gray-950/20': ! isCollapsed,
+                                    'bg-gray-50 dark:bg-gray-900': ! isCollapsed,
                                     'h-full': ! isCollapsed && fullScreenMode,
                                     'px-2': ! fullScreenMode,
                                     'px-3': fullScreenMode

@@ -45,6 +45,11 @@ class FilamentTiptapEditorServiceProvider extends PackageServiceProvider
             $assets[] = Css::make('tiptap-custom-extension-styles', Vite::asset(config('filament-tiptap-editor.extensions_styles')));
         }
 
-        FilamentAsset::register($assets, 'awcodes/tiptap-editor');
+        FilamentAsset::register($assets, static::getAssetPackageName());
+    }
+
+    public static function getAssetPackageName(): ?string
+    {
+        return 'height99/tiptap-editor';
     }
 }
