@@ -9,7 +9,7 @@ A Tiptap integration for Filament Admin/Forms.
 Install the package via composer
 
 ```bash
-composer require height99/filament-tiptap-editor:"^3.0"
+composer require height99/filament-tiptap-editor
 ```
 
 In an effort to align with Filament's theming methodology you will need to use a custom theme to use this plugin.
@@ -440,6 +440,20 @@ To insert a merge tag, the user can either type `{{` to open an autocomplete men
 TiptapEditor::make('content')
     ->mergeTags([...])
     ->showMergeTagsInBlocksPanel(false)
+```
+
+## Mentions
+
+Mentions can be used with JSON-based editor content to replace placeholders with dynamic content.
+Mentions tags are defined in the `mentions()` method of the editor instance:
+To insert a merge tag, the user can either type `@` to open an autocomplete menu.
+
+```php
+TiptapEditor::make('content')
+    ->mentions([
+        'first_name',
+        'last_name',
+    ])
 ```
 
 ## Usage in Standalone Forms Package
