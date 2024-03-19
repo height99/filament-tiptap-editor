@@ -228,7 +228,7 @@ export const Mention = Node.create({
                                         selectedIndex: 0,
                                         init: function () {
                                             this.$el.parentElement.addEventListener('mentions-key-down', (event) => this.onKeyDown(event.detail));
-                                            this.$el.parentElement.addEventListener('mentions-update-items', (event) => (items = event.detail));
+                                            this.$el.parentElement.addEventListener('mentions-update-items', (event) => (this.items = event.detail));
                                         },
                                         onKeyDown: function (event) {
                                             if (event.key === 'ArrowUp') {
@@ -258,13 +258,20 @@ export const Mention = Node.create({
                                     }"
                                     class="tippy-content-p-0"
                                 >
-                                    <template x-for="(item, index) in items" :key="index">
-                                        <button
-                                            x-text="item"
-                                            x-on:click="selectItem(index)"
-                                            :class="{ 'bg-primary-500': index === selectedIndex }"
-                                            class="block w-full text-left rounded px-2 py-1"
-                                        ></button>
+                                    <template x-if="items.length">
+                                        <template x-for="(item, index) in items" :key="index">
+                                            <button
+                                                x-text="item"
+                                                x-on:click="selectItem(index)"
+                                                :class="{ 'bg-primary-500': index === selectedIndex }"
+                                                class="block w-full text-left rounded px-2 py-1"
+                                            ></button>
+                                        </template>
+                                    </template>
+                                    <template x-if="!items.length">
+                                        <div class="block w-full text-left rounded px-2 py-1">
+                                            No result
+                                        </div>
                                     </template>
                                 </div>
                             `
@@ -288,14 +295,6 @@ export const Mention = Node.create({
                         },
                         
                         onUpdate(props) {
-                            if (!props.items.length) {
-                                popup[0].hide();
-                                
-                                return;
-                            }
-                            
-                            popup[0].show();
-                            
                             component.dispatchEvent(new CustomEvent('mentions-update-items', { detail: props.items }));
                         },
                         
